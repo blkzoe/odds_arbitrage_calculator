@@ -18,7 +18,7 @@ def calculate_profit_percentages(potential_profits, allocations):
 
 # Example usage for any number of odds
 capital = 1000
-odds = [5.1,5]
+odds = [5.17,4.13,13.4]
 allocations = calculate_arbitrage_allocation(capital, odds)
 potential_profits = calculate_potential_profit(capital, odds)
 profit_percentages = calculate_profit_percentages(potential_profits, allocations)
@@ -28,7 +28,7 @@ print(f"Allocations: {allocations}")
 print(f"Potential Profits: {potential_profits}")
 print(f"Profit Percentages: {profit_percentages}")
 
-if all(profit > 0 for profit in potential_profits):
+if all(profit > capital for profit in potential_profits):
     print("Arbitrage opportunity found!")
 else:
     print("No arbitrage opportunity found.")
