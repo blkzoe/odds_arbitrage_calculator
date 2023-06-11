@@ -12,22 +12,23 @@ def calculate_potential_profit(capital, odds):
     potential_profits = [allocations[i] * (odds[i] - 1) for i in range(len(odds))]
     return potential_profits
 
-def calculate_profit_percentage(capital, odds):
-    allocations = calculate_arbitrage_allocation(capital, odds)
-    total_allocation = sum(allocations)
-    profit_percentage = sum(calculate_potential_profit(capital, odds)) / total_allocation * 100
-    return profit_percentage
+def calculate_profit_percentages(potential_profits, allocations):
+    profit_percentages = [(profit / allocation) * 100 for profit, allocation in zip(potential_profits, allocations)]
+    return profit_percentages
 
 # Example usage for any number of odds
-capital = 10000
-odds = [2.5, 2.8, 3.2]
+capital = 1000
+odds = [5.1,5]
 allocations = calculate_arbitrage_allocation(capital, odds)
 potential_profits = calculate_potential_profit(capital, odds)
-profit_percentage = calculate_profit_percentage(capital, odds)
-total_profit = sum(potential_profits)
+profit_percentages = calculate_profit_percentages(potential_profits, allocations)
 
 print(f"Initial Capital: ${capital}")
 print(f"Allocations: {allocations}")
 print(f"Potential Profits: {potential_profits}")
-print(f"Profit Percentage: {profit_percentage:.2f}%")
-print(f"Total Profit: {total_profit}%")
+print(f"Profit Percentages: {profit_percentages}")
+
+if all(profit > 0 for profit in potential_profits):
+    print("Arbitrage opportunity found!")
+else:
+    print("No arbitrage opportunity found.")
